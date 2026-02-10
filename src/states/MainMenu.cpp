@@ -1,5 +1,6 @@
 #include <iostream>
 #include "MainMenu.h"
+#include "input.h"
 
 #define STATE_NAME "MainMenu"
 MainMenu::MainMenu(StateMachine* machine): State(STATE_NAME, machine)
@@ -13,11 +14,15 @@ void MainMenu::render() {
 
 void MainMenu::update() {
     /* Someone should write a utility function for handling btn presses... */
-    if(state_machine->event.type == SDL_KEYDOWN && state_machine->event.key.keysym.sym == SDLK_SPACE) {
-            state_machine->transition("GameState");
+    while (has_key()) {
+        SDL_Keycode key = pop_key();
+        if (key == SDLK_SPACE) {
+            state_machine->transition("DemoState");
+            return;
+        }
     }
     SDL_RenderPresent(state_machine->renderer);
-    SDL_Delay(10);
+    //SDL_Delay(10);
 }
 
 void MainMenu::enter() {

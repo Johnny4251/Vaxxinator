@@ -1,4 +1,5 @@
 #include <iostream>
+#include <SDL_image.h>
 #include "StateMachine.h"
 #include "MainMenu.h"
 #include "GameState.h"
@@ -11,11 +12,13 @@ bool StateMachine::init() {
         return false;
     }
 
+    if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
+        std::cerr << "IMG_Init() fail... " << IMG_GetError() << std::endl;
+        return false;
+    }
     /* Create the window and surface to render to */
     window = SDL_CreateWindow("Vaxxinator", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                             CANVAS_WIDTH, CANVAS_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
-    
-    
     /* Enable hardware acceleration for the renderer and allow integer scaling */
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     SDL_RenderSetLogicalSize(renderer, CANVAS_WIDTH, CANVAS_HEIGHT);

@@ -8,8 +8,8 @@
 
 #include "DefaultState.h"
 
-#define CANVAS_WIDTH  320
-#define CANVAS_HEIGHT 240
+#define CANVAS_WIDTH  800
+#define CANVAS_HEIGHT 600
 
 class State;
 
